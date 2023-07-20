@@ -8,11 +8,12 @@ import axios from "axios";
 const Home = ({type}) => {
   const [lists, setlists] = useState([]);
   const [genre, setgenre] = useState(null);
+  const axiosInstance = axios.create({baseURL:process.env.REACT_APP_API_URL});
 
   useEffect(() => {
     const getRandomList = async ()=>{
       try {
-        const res = await axios.get(
+        const res = await axiosInstance.get(
           `lists${type ? "?type="+type : ""}${genre ? "&genre="+ genre : ""}`,
           {
             headers : {
@@ -31,7 +32,7 @@ const Home = ({type}) => {
     <div className='home'>
       <Navbar />
       <Featured type={type} setgenre={setgenre}/>
-      {lists.map((list)=>(
+      {lists?.map((list)=>(
       <List list = {list} key={list._id}/>
       ))}
     </div>

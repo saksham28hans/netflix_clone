@@ -7,6 +7,7 @@ const Register = () => {
     const [email, setemail] = useState("");
     const [password, setpassword] = useState("");
     const [username, setusername] = useState("");
+    const axiosInstance = axios.create({baseURL:process.env.REACT_APP_API_URL});
     const usernameRef = useRef();
     const emailRef = useRef();
     const passwordRef = useRef();
@@ -21,7 +22,7 @@ const Register = () => {
      setpassword(passwordRef.current.value)
      
      try {
-       await axios.post('/auth/register',{email,username,password:passwordRef.current.value});
+       await axiosInstance.post('/auth/register',{email,username,password:passwordRef.current.value});
        navigate('/login')
      } catch (error) {
       console.log(error);
