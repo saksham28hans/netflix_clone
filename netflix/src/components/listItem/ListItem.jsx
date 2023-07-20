@@ -7,10 +7,11 @@ import { Link } from 'react-router-dom';
 const ListItem = ({index, item}) => {
   const [isHovered, setisHovered] = useState(false);
   const [movie, setmovie] = useState({});
+  const axiosInstance = axios.create({baseURL:process.env.REACT_APP_API_URL});
   useEffect(() => {
     const getMovie = async()=>{
       try {
-        const mov = await axios('movies/find/'+item);
+        const mov = await axiosInstance.get('movies/find/'+item);
         setmovie(mov.data);
       } catch (error) {
         console.log(error);

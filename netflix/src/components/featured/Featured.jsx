@@ -6,11 +6,11 @@ import { Link } from 'react-router-dom';
 
 const Featured = ({type, setgenre}) => {
     const [content, setcontent] = useState({});
-
+    const axiosInstance = axios.create({baseURL:process.env.REACT_APP_API_URL});
     useEffect(() => {
       const getRandomMovie = async ()=>{
         try {
-            const res= await axios.get(`/movies/random?type=${type}`,
+            const res= await axiosInstance.get(`movies/random?type=${type}`,
             {
                 headers : {
                     token : `Bearer ${localStorage.getItem("user").accessToken}`
